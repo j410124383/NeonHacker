@@ -18,6 +18,7 @@ public class UIManager : FindGM
 
     [Header("武器可视化信息")]
     public TMP_Text _WeaponListText;
+    public Image _ClipImage;
     public TMP_Text _WeaponText;
 
 
@@ -41,11 +42,10 @@ public class UIManager : FindGM
         for (int i = 0; i < _SC._WeaponList.Count; i++)
         {
             var v = "";
-            v = string.Format("[{0:N}] [GunName]{1:N}   [Count]{2:N}     [Clip]{3:N}\n",
+            v = string.Format("[{0:N}] [Type]{1:N}   [Count]{2:N}\n",
                 i.ToString(), 
                 _SC._WeaponList[i].guntype.GunName,
-                _SC._WeaponList[i].gunCount.ToString(),
-                _SC._WeaponList[i].clipCount.ToString()
+                _SC._WeaponList[i].gunCount.ToString()
                 );
             //若为当前使用武器，则高亮UI
             if (_SC._WeaponList[i].guntype.GunName==_SC.weapon.guntype.GunName)
@@ -60,6 +60,7 @@ public class UIManager : FindGM
 
         }
         _WeaponListText.text = x;
+        _ClipImage.fillAmount = (float)_SC.weapon.clipCount / (float)_SC.weapon.guntype.ClipCount;
 
         //显示所持武器
         if (_SC._WeaponList.Count==0)

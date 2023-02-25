@@ -12,13 +12,15 @@ public enum SkillName
 
 public class SkillManager : FindGM
 {
-   
-   
+
+    [Header("需要暴露的参数")]
+    public float DashSpeed =40f;
+    public float JumpPower =7f;
     public void SkillUse(SkillName name)
     {
         if (name == SkillName.无技能)
         {
-            print("该武器无技能!");
+            //print("该武器无技能!");
             return;
         }
 
@@ -53,15 +55,17 @@ public class SkillManager : FindGM
 
     public void Skill_Jump()
     {
-        Debug.Log("二段跳");
-        _PC._rigidbody2D.velocity = new Vector2(_PC._rigidbody2D.velocity.x, 7f);
+        //Debug.Log("二段跳");
+        _PC._rigidbody2D.velocity = new Vector2(_PC._rigidbody2D.velocity.x, JumpPower);
 
     }
 
+
     public void Skill_Dash()
     {
-        Debug.Log("冲刺");
-        _PC._rigidbody2D.velocity = new Vector2(7f, _PC._rigidbody2D.velocity.y);
+        //Debug.Log("冲刺");
+        var x = _P.transform.localScale.x;
+        _PC._rigidbody2D.velocity = new Vector2(DashSpeed * x, _PC._rigidbody2D.velocity.y);
     }
 
 

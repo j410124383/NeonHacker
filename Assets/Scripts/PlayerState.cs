@@ -6,32 +6,34 @@ public class PlayerState : FindGM
 {
     public int Health=3;
 
+    private void Update()
+    {
+        if (Health<=0)
+        {
+            _GM.GameOver();
+        }
+    }
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        //print("接触"+col.gameObject.name);
-        if (col.gameObject.tag=="Target")
+        if (col.gameObject.tag == "Target")
         {
             print("Completed");
             _GM.GameCompleted();
         }
-        else if(col.gameObject.tag == "Prop")
+        else if (col.gameObject.tag == "Prop")
         {
             var g = col.gameObject.GetComponent<Prop>().Fallgun;
             _SC.GunAdd(g);
-            print("已拾取物"+g.GunName);
+            //print("已拾取物"+g.GunName);
             Destroy(col.gameObject);
         }
-
-
-
-
     }
-
 
 
 }

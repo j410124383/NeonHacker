@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _PM2D_01 = Resources.Load("PhysicsMaterials/PM_Normal") as PhysicsMaterial2D;
-        _PM2D_01 = Resources.Load("PhysicsMaterials/PM_Jump") as PhysicsMaterial2D;
+        _PM2D_02 = Resources.Load("PhysicsMaterials/PM_Jump") as PhysicsMaterial2D;
     }
     void FixedUpdate()
     {

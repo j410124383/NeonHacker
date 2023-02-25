@@ -14,14 +14,19 @@ public class EnemyDisplay : FindGM
         Health = _Enemy.Health;
     }
 
+    private void OnCollisionEnter2D(Collision2D col)    
+    {
+
+    }
+
     private void OnCollisionStay2D(Collision2D col)
     {
+
         if (col.gameObject.tag == "Player")
         {
             col.transform.GetComponent<PlayerController>().Jump();
             Die();
         }
-
     }
 
     private void Update()

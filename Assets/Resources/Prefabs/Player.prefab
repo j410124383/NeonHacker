@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 4176992758895428698}
   - component: {fileID: 4176992758895428700}
   - component: {fileID: 4983179886778789703}
-  - component: {fileID: 2072389613}
+  - component: {fileID: 5015998883866783893}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -173,7 +173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b495f3b2a19a24eb114bca9775e570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 3
+  _rigidbody2D: {fileID: 0}
+  _velocityX: 0
   walkSpeed: 5
   AccelerateTime: 0.09
   JumpingSpeed: 7
@@ -184,8 +185,6 @@ MonoBehaviour:
   GroundLayerMask:
     serializedVersion: 2
     m_Bits: 8
-  _PM2D_01: {fileID: 6200000, guid: c7de1308fb59b2a4d9c2309872b3e55b, type: 2}
-  _PM2D_02: {fileID: 6200000, guid: 21e12fb5f579e1c42a999d0d0a6a75a2, type: 2}
 --- !u!114 &4176992758895428700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,6 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91cb42a646a44e04cb3ee02fa6b8f744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Health: 3
 --- !u!114 &4983179886778789703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,10 +210,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0080cd58d11b68458de123aed72c138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Bullet: {fileID: 7154800090126220562, guid: 0731a9813fd3d9248a8975ba0f3a68ee, type: 3}
   _ShootTrans: {fileID: 5150186208082583206}
   target: {x: 0, y: 0}
---- !u!114 &2072389613
+--- !u!114 &5015998883866783893
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -225,6 +224,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc18546122969a4e95740232c0a0fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DashSpeed: 40
+  JumpPower: 7
 --- !u!1 &4176992759604003666
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2207855504209614624}
   - component: {fileID: 2207855504209614627}
   - component: {fileID: 2207855504209614628}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: P_Prop
   m_TagString: Prop
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -73,7 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2207855504356657479}
   - component: {fileID: 2207855504356657476}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: S_Prop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: 1503308821, guid: fbd2e6bf6fa56284abd9a587e62b3970, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

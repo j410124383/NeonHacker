@@ -116,6 +116,7 @@ public class ShootController : FindGM
         bullet.transform.SetParent(_GM.transform);
         var b = bullet.GetComponent<Bullet>();
         //参数赋予
+        b.bulletType = BulletType.己方;
         b.FlySpeed = weapon.guntype.BulletSpeed;
         b.Damage = weapon.guntype.BulletDanmage;
         b.transform.GetChild(0).GetComponent<SpriteRenderer>().color = weapon.guntype.GunColor;

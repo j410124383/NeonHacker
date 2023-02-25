@@ -67,6 +67,7 @@ MonoBehaviour:
   Damage: 1
   LiveTime: 10
   target: {x: 0, y: 0}
+  bulletType: 0
 --- !u!50 &-9172125563074230629
 Rigidbody2D:
   serializedVersion: 4

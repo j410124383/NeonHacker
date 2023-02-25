@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1485182479860079579}
   - component: {fileID: 1485182479860079578}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: P_Target
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -59,8 +59,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1485182480516851647}
   - component: {fileID: 1485182480516851646}
-  m_Layer: 0
-  m_Name: Square
+  m_Layer: 8
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,7 +121,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 1775752848, guid: 5fc3a1dea93b8e34591f7f5bfa155421, type: 3}
   m_Color: {r: 0.45724455, g: 0.9811321, b: 0.97594154, a: 1}
   m_FlipX: 0
