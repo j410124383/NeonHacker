@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77a6b0e543c000345915719f5bbb1760, type: 3}
+  m_Name: Pistol
+  m_EditorClassIdentifier: 
+  GunName: Pistol
+  ShootSpeed: 0
+  shootMod: 0
+  BulletObj: {fileID: 7154800090126220562, guid: 0731a9813fd3d9248a8975ba0f3a68ee, type: 3}
+  BulletLiveTime: 20
+  ClipCount: 10
+  BulletSpeed: 20
+  BulletDanmage: 1
+  GunSprite: {fileID: -341064328, guid: 5fc3a1dea93b8e34591f7f5bfa155421, type: 3}
+  GunIcon: {fileID: 1503308821, guid: fbd2e6bf6fa56284abd9a587e62b3970, type: 3}
+  SkillName: Jump
+  GunColor: {r: 1, g: 0.82008487, b: 0.069811285, a: 1}
+  Skill: 1
