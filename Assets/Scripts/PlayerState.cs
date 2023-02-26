@@ -30,9 +30,18 @@ public class PlayerState : FindGM
         {
             var g = col.gameObject.GetComponent<Prop>().Fallgun;
             _SC.GunAdd(g);
-            //print("ÒÑÊ°È¡Îï"+g.GunName);
             Destroy(col.gameObject);
         }
+        else if (col.gameObject.tag == "Gift")
+        {
+            _GM.GetGift();
+            Destroy(col.gameObject);
+        }
+        //else if (col.gameObject.GetComponent<EnemyDisplay>()._EnemyType.EnemyName=="FallBall")
+        //{
+        //    _PC.Jump();
+        //    col.gameObject.GetComponent<EnemyDisplay>().Die();
+        //}
     }
 
 

@@ -3,24 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class UIManager : FindGM
 {
     public TMP_Text _Timetext;
 
     public TMP_Text _Textname;
-    public Image _healthImage;
 
+    public GameObject _BarEnemyState;
     public TMP_Text _DemonCounttext;
 
     [Header("角色信息")]
     public TMP_Text _PlayerStateText;
+    public Image _HealthImage;
 
     [Header("武器可视化信息")]
     public TMP_Text _WeaponListText;
     public Image _ClipImage;
     public TMP_Text _WeaponText;
 
+    [Header("其余显示信息")]
+    public Image _GiftImage;
 
     protected override void Awake()
     {
@@ -35,7 +39,7 @@ public class UIManager : FindGM
         //显示当前角色状态
         var h= _PS.Health.ToString();
         _PlayerStateText.text = "==Player State==\n[Health]  " + h;
-
+        _HealthImage.fillAmount = _PS.Health / 3f;
 
         //显示当前武器卡
         var x = "==WeaponCard==\n";
@@ -82,6 +86,10 @@ public class UIManager : FindGM
         var panel_c = Instantiate(p, transform);
         panel_c.transform.SetParent(transform);
         panel_c.transform.GetChild(0).GetComponent<TMP_Text>().text = _Timetext.text;
+        if (_GM.Gift)
+        {
+            panel_c.transform.GetChild(1).gameObject.SetActive(true);
+        }
     }
 
     public void GameOverUI()
@@ -95,11 +103,21 @@ public class UIManager : FindGM
 
     public void EnemyStateDisplay(string _name,float _health,float _maxhealth)
     {
-        _healthImage.fillAmount = _health / _maxhealth;
-        _Textname.text = _name;
+        if (_health <= 0) return;
+        var a = _BarEnemyState.GetComponent<Animator>();
+        if (a.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            a.SetTrigger("ISACTIVE");
+        }
+
+        _BarEnemyState.transform.GetChild(0).GetComponent<Image>().fillAmount = _health / _maxhealth;
+        _BarEnemyState.transform.GetChild(1).GetComponent<TMP_Text>().text = _name;
     }
 
 
-
+    public void GiftUI()
+    {
+        _GiftImage.gameObject.SetActive(true);
+    }
 
 }

@@ -12,6 +12,8 @@ public class FindGM : MonoBehaviour
     protected PlayerState _PS;
     protected ShootController _SC;
     protected SkillManager _SM;
+    protected GameObject _CM;
+
     protected virtual void Awake()
     {
 
@@ -22,6 +24,7 @@ public class FindGM : MonoBehaviour
         _PC = _P.GetComponent<PlayerController>();
         _SM = _P.GetComponent<SkillManager>();
         _PS = _P.GetComponent<PlayerState>();
+        _CM = GameObject.FindWithTag("CM");
     }
 
 

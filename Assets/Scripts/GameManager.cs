@@ -10,7 +10,7 @@ public class GameManager : FindGM
     public int[] time = new int[3]; //∑÷÷”£¨√Î÷”£¨∫¡√Î
     [HideInInspector]public float _NowTime;
 
-
+    public bool Gift;
 
     public string TimeToString(int result)
     {
@@ -59,5 +59,11 @@ public class GameManager : FindGM
         _UIM.GameOverUI();
     }
 
+    public void GetGift()
+    {
+        //ªÒµ√≤››Æ
+        Gift = true;
+        _UIM.GiftUI();
+    }
 
 }

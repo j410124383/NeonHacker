@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc18546122969a4e95740232c0a0fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DashSpeed: 40
+  DashSpeed: 60
   JumpPower: 7
 --- !u!1 &4176992759604003666
 GameObject:

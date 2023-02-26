@@ -46,7 +46,9 @@ public class SkillManager : FindGM
         {
             _SC.weapon.gunCount--;
         }
-       
+
+        _CM.GetComponent<Animator>().SetTrigger("ISACTIVE");
+        print(_CM.name);
 
     }
 

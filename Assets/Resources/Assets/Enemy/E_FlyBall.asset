@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08d4e568f7e22c41bc81509e17608b2, type: 3}
   m_Name: E_FlyBall
   m_EditorClassIdentifier: 
-  Health: 5
-  Name: FlyBall
+  Health: 4
+  EnemyName: FallBall
+  AimingTime: 0
+  AimingRange: 0
+  BulletDanmage: 0
+  BulletObj: {fileID: 0}
+  BulletSpeed: 0
+  BulletLiveTime: 0

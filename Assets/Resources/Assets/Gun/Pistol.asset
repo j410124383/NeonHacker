@@ -17,7 +17,7 @@ MonoBehaviour:
   shootMod: 0
   BulletObj: {fileID: 7154800090126220562, guid: 0731a9813fd3d9248a8975ba0f3a68ee, type: 3}
   BulletLiveTime: 20
-  ClipCount: 10
+  ClipCount: 7
   BulletSpeed: 20
   BulletDanmage: 1
   GunSprite: {fileID: -341064328, guid: 5fc3a1dea93b8e34591f7f5bfa155421, type: 3}

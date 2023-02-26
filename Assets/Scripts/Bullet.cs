@@ -12,11 +12,11 @@ public enum BulletType
 
 public class Bullet : FindGM
 {
-
-    [HideInInspector] public float FlySpeed;
-    [HideInInspector] public float Damage;
-    [HideInInspector] public float LiveTime;
-    [HideInInspector] public Vector2 target;
+    [Header("子弹参数（被接收的）")]
+    public float FlySpeed;
+    public float Damage;
+    public float LiveTime;
+    public Vector2 target;
     public BulletType bulletType;
     private Rigidbody2D Rig;
 
@@ -57,24 +57,31 @@ public class Bullet : FindGM
 
     }
 
+    //private void OnTriggerEnter2D(Collider2D col)
+    //{
+
+    //}
+
+
     private void OnCollisionEnter2D(Collision2D col)
     {
-
         if (col.gameObject.tag == "AI")
         {
-            print("1");
+            //print("1");
             var ed = col.gameObject.GetComponent<EnemyDisplay>();
             ed.Behurt(Damage);
-            _UIM.EnemyStateDisplay(ed._Enemy.Name, ed.Health, ed._Enemy.Health);
-        }else if (col.gameObject.tag == "Player")
+            _UIM.EnemyStateDisplay(ed._EnemyType.EnemyName, ed.Health, ed._EnemyType.Health);
+        }
+        if (col.gameObject.tag == "Player")
         {
-
-                _PS.Health--;
+            print("1");
+            _PS.Health--;
 
         }
 
 
         Die();
+
     }
 
 

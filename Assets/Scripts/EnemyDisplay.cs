@@ -5,28 +5,13 @@ using UnityEngine;
 public class EnemyDisplay : FindGM
 {
 
-    public Enemy _Enemy;
+    public EnemyType _EnemyType;
 
     public float Health;
     protected override void Awake()
     {
         base.Awake();
-        Health = _Enemy.Health;
-    }
-
-    private void OnCollisionEnter2D(Collision2D col)    
-    {
-
-    }
-
-    private void OnCollisionStay2D(Collision2D col)
-    {
-
-        if (col.gameObject.tag == "Player")
-        {
-            col.transform.GetComponent<PlayerController>().Jump();
-            Die();
-        }
+        Health = _EnemyType.Health;
     }
 
     private void Update()

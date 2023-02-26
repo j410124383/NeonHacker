@@ -12,6 +12,8 @@ TagManager:
   - DD
   - Bullet
   - Prop
+  - Gift
+  - CM
   layers:
   - Default
   - TransparentFX
