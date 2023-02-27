@@ -26,7 +26,12 @@ public class ShootController : FindGM
 
     protected void Update()
     {
-        target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(_ShootTrans.position);
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = screenPos.z;
+
+
+        target = Camera.main.ScreenToWorldPoint(mousePos);
         _ShootTrans.LookAt(new Vector2(target.x, target.y));
         _ShootTrans.transform.Rotate(new Vector3(0, -90, 0));
 
