@@ -21,6 +21,8 @@ public class UIManager : FindGM
     [Header("武器可视化信息")]
     public TMP_Text _WeaponListText;
     public Image _ClipImage;
+    public Image _WeaponIcon;
+    public Image _WeaponCount;
     public TMP_Text _WeaponText;
 
     [Header("其余显示信息")]
@@ -64,19 +66,25 @@ public class UIManager : FindGM
 
         }
         _WeaponListText.text = x;
-        _ClipImage.fillAmount = (float)_SC.weapon.clipCount / (float)_SC.weapon.guntype.ClipCount;
+
 
         //显示所持武器
+        var c = _SC.weapon.guntype;
+        _ClipImage.fillAmount =1-((float)_SC.weapon.clipCount / (float)c.ClipCount);
         if (_SC._WeaponList.Count==0)
         {
             _WeaponText.text = "null Weapon";
             return;
         } 
-        _WeaponText.text = string.Format("==Hold Weapon==\n[Type]  {0:N}\n[Skill]  {1:N}\n[Clip]   {2:N}/{3:N}",
-            _SC.weapon.guntype.GunName,
-            _SC.weapon.guntype.SkillName,
+        _WeaponText.text = string.Format("[Type]  {0:N}\n[Skill]  {1:N}\n[Clip]   {2:N}/{3:N}",
+            c.GunName,
+            c.SkillName,
             _SC.weapon.clipCount.ToString(),
-            _SC.weapon.guntype.ClipCount.ToString());
+            c.ClipCount.ToString());
+        _WeaponIcon.sprite = _SC.weapon.guntype.GunIcon;
+        _WeaponCount.color = _SC.weapon.guntype.GunColor;
+        _WeaponCount.fillAmount = _SC.weapon.gunCount / 3f;
+
     }
 
     public void CompletedUI()
