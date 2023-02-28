@@ -7,27 +7,16 @@ public class GameManager : FindGM
 {
     [Header("剩余目标数量")]
     public int _TargetCount;
-    public int[] time = new int[3]; //分钟，秒钟，毫秒
+    public int[] time =new int[3]  ; //分钟，秒钟，毫秒
     [HideInInspector]public float _NowTime;
 
     public bool Gift;
-
-    public string TimeToString(int result)
-    {
-        int hour = (int)result / 3600;
-        int minute = ((int)result - hour * 3600) / 60;
-        int second = (int)result - hour * 3600 - minute * 60;
-        string data = string.Format("{0:D2}:{1:D2}:{2:D2}", hour, minute, second);
-        return data;
-    }
 
     private void Update()
     {
         //时间的计算
         _NowTime +=Time.deltaTime;
-        time[0] = (int)Mathf.Floor(_NowTime/ 60f);
-        time[1] = (int)Mathf.Floor(_NowTime-time[0]*60f) ;
-        time[2] = (int)Mathf.Floor((_NowTime - (int)_NowTime) * 100);
+        time = TimeToString(_NowTime);
 
 
         //重置时间，并重开
@@ -38,8 +27,15 @@ public class GameManager : FindGM
 
 
     }
+    public int[] TimeToString(float t)
+    {
+        int[] x = new int[3];
+        x[0]= (int)Mathf.Floor(t / 60f);
+        x[1]=(int)Mathf.Floor(t - x[0] * 60f);
+        x[2]=(int)Mathf.Floor((t - (int)t) * 100);
 
-
+        return x;
+    }
     public void Restart()
     {
             Time.timeScale = 1f;
@@ -50,6 +46,16 @@ public class GameManager : FindGM
     public void GameCompleted()
     {
         if (_TargetCount > 0) return;
+        //比较存储的最快数据
+        var x = PlayerPrefs.GetFloat("fasttime");
+        print("以往最快值为" + x);
+        if (x==0 || _NowTime < x)
+        {
+            PlayerPrefs.SetFloat("fasttime", _NowTime);
+            print("新最快速度已录入"+_NowTime);
+        }
+
+
         _UIM.CompletedUI();
 
     }

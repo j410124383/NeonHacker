@@ -48,7 +48,7 @@ public class SkillManager : FindGM
         }
 
         _CM.GetComponent<Animator>().SetTrigger("ISACTIVE");
-        print(_CM.name);
+        //print(_CM.name);
 
     }
 
