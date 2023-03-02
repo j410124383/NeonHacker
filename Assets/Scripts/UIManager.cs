@@ -83,11 +83,10 @@ public class UIManager : FindGM
             _WeaponText.text = "null Weapon";
             return;
         } 
-        _WeaponText.text = string.Format("[Type]  {0:N}\n[Skill]  {1:N}\n[Clip]   {2:N}/{3:N}",
+        _WeaponText.text = string.Format("[Type]  {0:N}\n[Skill]  {1:N}\n[Clip]   {2:N}",
             c.GunName,
             c.SkillName,
-            _SC.weapon.clipCount.ToString(),
-            c.ClipCount.ToString());
+            _SC.weapon.clipCount.ToString());
         _WeaponIcon.sprite = _SC.weapon.guntype.GunIcon;
         _WeaponCount.color = _SC.weapon.guntype.GunColor;
         _WeaponCount.fillAmount = _SC.weapon.gunCount / 3f;

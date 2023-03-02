@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : FindGM
 {
 
     [HideInInspector] public Rigidbody2D _rigidbody2D;
@@ -26,8 +26,9 @@ public class PlayerController : MonoBehaviour
 
     private PhysicsMaterial2D _PM2D_01, _PM2D_02;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _PM2D_01 = Resources.Load("PhysicsMaterials/PM_Normal") as PhysicsMaterial2D;
         _PM2D_02 = Resources.Load("PhysicsMaterials/PM_Jump") as PhysicsMaterial2D;
@@ -68,7 +69,7 @@ public class PlayerController : MonoBehaviour
                     _rigidbody2D.velocity.x,
                     speed * Time.fixedDeltaTime * 60,
                     ref _velocityX,
-                    AccelerateTime),
+                    AccelerateTime), //此值越小，到达速度越快
                 _rigidbody2D.velocity.y);
 
 
@@ -100,6 +101,16 @@ public class PlayerController : MonoBehaviour
                                     Physics2D.gravity.y *
                                     LowJumpMultiplier *
                                     Time.fixedDeltaTime;
+        }
+
+        var a = _CM.GetComponent<Animator>();
+        if (_rigidbody2D.velocity==Vector2.zero)
+        {
+            a.SetBool("IsMove", false);
+        }
+        else
+        {
+            a.SetBool("IsMove", true);
         }
     }
     private bool OnGround()

@@ -22,35 +22,35 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 6.5
-        inSlope: 3.34359
-        outSlope: -1.0036682
+        value: 16
+        inSlope: 0
+        outSlope: -22.432653
         tangentMode: 1
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.6932064
+        outWeight: 0.43985263
       - serializedVersion: 3
         time: 0.083333336
-        value: 6.893396
-        inSlope: 3.8613033
-        outSlope: -2.2582335
+        value: 15
+        inSlope: -5.0010242
+        outSlope: -1.0933764
         tangentMode: 1
         weightedMode: 0
-        inWeight: 0.4667643
-        outWeight: 0.30651906
+        inWeight: 0.8390783
+        outWeight: 0.28134313
       - serializedVersion: 3
-        time: 0.375
-        value: 6.5
-        inSlope: -0.19816737
-        outSlope: -2.1480083
+        time: 0.33333334
+        value: 16
+        inSlope: 6.7117815
+        outSlope: 0
         tangentMode: 1
         weightedMode: 0
-        inWeight: 0.35354325
+        inWeight: 0.283402
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_Lens.OrthographicSize
+    attribute: m_Lens.FieldOfView
     path: 
     classID: 114
     script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
@@ -64,7 +64,7 @@ AnimationClip:
     genericBindings:
     - serializedVersion: 2
       path: 0
-      attribute: 2246102236
+      attribute: 3703709682
       script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
       typeID: 114
       customType: 0
@@ -75,7 +75,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.375
+    m_StopTime: 0.33333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -96,35 +96,35 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 6.5
-        inSlope: 3.34359
-        outSlope: -1.0036682
+        value: 16
+        inSlope: 0
+        outSlope: -22.432653
         tangentMode: 1
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.6932064
+        outWeight: 0.43985263
       - serializedVersion: 3
         time: 0.083333336
-        value: 6.893396
-        inSlope: 3.8613033
-        outSlope: -2.2582335
+        value: 15
+        inSlope: -5.0010242
+        outSlope: -1.0933764
         tangentMode: 1
         weightedMode: 0
-        inWeight: 0.4667643
-        outWeight: 0.30651906
+        inWeight: 0.8390783
+        outWeight: 0.28134313
       - serializedVersion: 3
-        time: 0.375
-        value: 6.5
-        inSlope: -0.19816737
-        outSlope: -2.1480083
+        time: 0.33333334
+        value: 16
+        inSlope: 6.7117815
+        outSlope: 0
         tangentMode: 1
         weightedMode: 0
-        inWeight: 0.35354325
+        inWeight: 0.283402
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_Lens.OrthographicSize
+    attribute: m_Lens.FieldOfView
     path: 
     classID: 114
     script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}

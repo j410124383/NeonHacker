@@ -176,7 +176,7 @@ MonoBehaviour:
   _rigidbody2D: {fileID: 0}
   _velocityX: 0
   walkSpeed: 5
-  AccelerateTime: 0.09
+  AccelerateTime: 0.06
   JumpingSpeed: 7
   FallMultipier: 0
   LowJumpMultiplier: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc18546122969a4e95740232c0a0fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DashSpeed: 60
+  DashSpeed: 90
   JumpPower: 7
 --- !u!1 &4176992759604003666
 GameObject:
@@ -299,7 +299,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 1350175716, guid: d7ced0a718b30c646aefbd57a823eb73, type: 3}
+  m_Sprite: {fileID: -1647672906, guid: 3f5e869794abb054f9b1dcc3854e8cc9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -334,7 +334,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4176992759770143098}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.362, z: 0}
+  m_LocalPosition: {x: 0, y: -0.411, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
