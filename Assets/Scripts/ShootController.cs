@@ -112,7 +112,7 @@ public class ShootController : FindGM
     void Shoot()
     {
 
-        var bullet = Instantiate(weapon.guntype.BulletObj, _ShootTrans.GetChild(0));
+        var bullet = Instantiate(weapon.guntype.BulletObj, _ShootTrans.GetChild(0).GetChild(0));
         bullet.transform.SetParent(_GM.transform);
         var b = bullet.GetComponent<Bullet>();
         //²ÎÊý¸³Óè

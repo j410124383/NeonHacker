@@ -20,8 +20,8 @@ MonoBehaviour:
   ClipCount: 5
   BulletSpeed: 25
   BulletDanmage: 2
-  GunSprite: {fileID: 2057959335, guid: 5fc3a1dea93b8e34591f7f5bfa155421, type: 3}
-  GunIcon: {fileID: -1772982235, guid: fbd2e6bf6fa56284abd9a587e62b3970, type: 3}
+  GunSprite: {fileID: 1241851644, guid: 3f5e869794abb054f9b1dcc3854e8cc9, type: 3}
+  GunIcon: {fileID: -1772982235, guid: 1efd3b8ced6b4154bb35f2b53963fe16, type: 3}
   SkillName: Dash
   GunColor: {r: 0.4409617, g: 0.27735847, b: 1, a: 1}
   Skill: 2
