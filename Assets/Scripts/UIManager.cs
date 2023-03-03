@@ -9,8 +9,10 @@ public class UIManager : FindGM
 {
     public TMP_Text _Timetext;
 
+    [Header("敌人信息")]
     public TMP_Text _Textname;
-
+    public float _BarSpeed=5F;
+    private float _Fill_F, _Fill_B,_Starttime;
     public GameObject _BarEnemyState;
     public TMP_Text _DemonCounttext;
 
@@ -21,6 +23,8 @@ public class UIManager : FindGM
     [Header("武器可视化信息")]
     public TMP_Text _WeaponListText;
     public Image _ClipImage;
+    public Image _WeaponIcon;
+    public Image _WeaponCount;
     public TMP_Text _WeaponText;
 
     [Header("其余显示信息")]
@@ -35,6 +39,11 @@ public class UIManager : FindGM
     {
         _Timetext.text= string.Format("{0:D2}:{1:D2}:{2:D2}", _GM.time[0], _GM.time[1], _GM.time[2]);
         _DemonCounttext.text = _GM._TargetCount.ToString();
+
+        //刷新当前敌人血条信息
+        _BarEnemyState.transform.GetChild(0).GetComponent<Image>().fillAmount =
+         Mathf.Lerp(_Fill_B, _Fill_F, (Time.time - _Starttime) * _BarSpeed);
+
 
         //显示当前角色状态
         var h= _PS.Health.ToString();
@@ -64,19 +73,24 @@ public class UIManager : FindGM
 
         }
         _WeaponListText.text = x;
-        _ClipImage.fillAmount = (float)_SC.weapon.clipCount / (float)_SC.weapon.guntype.ClipCount;
+
 
         //显示所持武器
+        var c = _SC.weapon.guntype;
+        _ClipImage.fillAmount =1-((float)_SC.weapon.clipCount / (float)c.ClipCount);
         if (_SC._WeaponList.Count==0)
         {
             _WeaponText.text = "null Weapon";
             return;
         } 
-        _WeaponText.text = string.Format("==Hold Weapon==\n[Type]  {0:N}\n[Skill]  {1:N}\n[Clip]   {2:N}/{3:N}",
-            _SC.weapon.guntype.GunName,
-            _SC.weapon.guntype.SkillName,
-            _SC.weapon.clipCount.ToString(),
-            _SC.weapon.guntype.ClipCount.ToString());
+        _WeaponText.text = string.Format("[Type]  {0:N}\n[Skill]  {1:N}\n[Clip]   {2:N}",
+            c.GunName,
+            c.SkillName,
+            _SC.weapon.clipCount.ToString());
+        _WeaponIcon.sprite = _SC.weapon.guntype.GunIcon;
+        _WeaponCount.color = _SC.weapon.guntype.GunColor;
+        _WeaponCount.fillAmount = _SC.weapon.gunCount / 3f;
+
     }
 
     public void CompletedUI()
@@ -90,6 +104,12 @@ public class UIManager : FindGM
         {
             panel_c.transform.GetChild(1).gameObject.SetActive(true);
         }
+
+        var x = PlayerPrefs.GetFloat("fasttime");
+        var y = _GM.TimeToString(x);
+        print(x);
+        panel_c.transform.GetChild(2).GetComponent<TMP_Text>().text =
+            string.Format("[BEST FAST]  {0:D2}:{1:D2}:{2:D2}", y[0], y[1], y[2]);
     }
 
     public void GameOverUI()
@@ -101,17 +121,21 @@ public class UIManager : FindGM
     }
 
 
-    public void EnemyStateDisplay(string _name,float _health,float _maxhealth)
+    public void EnemyStateDisplay(string _name,float _health,float _damage,float _maxhealth)
     {
-        if (_health <= 0) return;
+
         var a = _BarEnemyState.GetComponent<Animator>();
+        _Starttime = Time.time;
+        _Fill_F= _health / _maxhealth;
+        _Fill_B = (_health + _damage) / _maxhealth;
+        _BarEnemyState.transform.GetChild(1).GetComponent<Image>().fillAmount=_Fill_F;
+
         if (a.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             a.SetTrigger("ISACTIVE");
         }
 
-        _BarEnemyState.transform.GetChild(0).GetComponent<Image>().fillAmount = _health / _maxhealth;
-        _BarEnemyState.transform.GetChild(1).GetComponent<TMP_Text>().text = _name;
+        _BarEnemyState.transform.GetChild(2).GetComponent<TMP_Text>().text = _name;
     }
 
 

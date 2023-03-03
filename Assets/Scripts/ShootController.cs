@@ -85,15 +85,10 @@ public class ShootController : FindGM
             var W = _WeaponList[i];
             if (W.guntype.GunName == gun.GunName)
             {
-                if (W.gunCount==3)
+                W.clipCount += W.guntype.ClipCount ;
+
+                if (W.gunCount<3)
                 {
-                    print(W.guntype.GunName+" "+gun.GunName);
-                    Debug.Log("获得：已满，子弹补充");
-                    W.clipCount += Mathf.FloorToInt(W.guntype.ClipCount*0.4f);
-                }
-                else
-                {
-                    Debug.Log("获得：数量加1");
                     W.gunCount++;
                 }
                 break;
@@ -117,7 +112,7 @@ public class ShootController : FindGM
     void Shoot()
     {
 
-        var bullet = Instantiate(weapon.guntype.BulletObj, _ShootTrans.GetChild(0));
+        var bullet = Instantiate(weapon.guntype.BulletObj, _ShootTrans.GetChild(0).GetChild(0));
         bullet.transform.SetParent(_GM.transform);
         var b = bullet.GetComponent<Bullet>();
         //参数赋予

@@ -23,7 +23,7 @@ public class PlayerState : FindGM
     {
         if (col.gameObject.tag == "Target")
         {
-            print("Completed");
+            //print("Completed");
             _GM.GameCompleted();
         }
         else if (col.gameObject.tag == "Prop")

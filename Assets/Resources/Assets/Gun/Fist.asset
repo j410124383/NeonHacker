@@ -20,8 +20,8 @@ MonoBehaviour:
   ClipCount: 15
   BulletSpeed: 0
   BulletDanmage: 1
-  GunSprite: {fileID: 1023864871, guid: 5fc3a1dea93b8e34591f7f5bfa155421, type: 3}
-  GunIcon: {fileID: -2145268086, guid: fbd2e6bf6fa56284abd9a587e62b3970, type: 3}
+  GunSprite: {fileID: 1346652413, guid: 3f5e869794abb054f9b1dcc3854e8cc9, type: 3}
+  GunIcon: {fileID: -2145268086, guid: 1efd3b8ced6b4154bb35f2b53963fe16, type: 3}
   SkillName: None
   GunColor: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 1}
   Skill: 0
