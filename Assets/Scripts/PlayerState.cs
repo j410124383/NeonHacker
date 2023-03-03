@@ -10,6 +10,7 @@ public class PlayerState : FindGM
     {
         if (Health<=0)
         {
+            GetComponent<Animator>().SetBool("IsDie",true);
             _GM.GameOver();
         }
     }
@@ -43,6 +44,8 @@ public class PlayerState : FindGM
         //    col.gameObject.GetComponent<EnemyDisplay>().Die();
         //}
     }
+
+
 
 
 }

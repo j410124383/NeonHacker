@@ -25,11 +25,14 @@ public class PlayerController : FindGM
     public LayerMask GroundLayerMask; //地面盒形接触框的检测层
 
     private PhysicsMaterial2D _PM2D_01, _PM2D_02;
+    private Animator _Anima;
+
 
     protected override void Awake()
     {
         base.Awake();
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _Anima = GetComponent<Animator>();
         _PM2D_01 = Resources.Load("PhysicsMaterials/PM_Normal") as PhysicsMaterial2D;
         _PM2D_02 = Resources.Load("PhysicsMaterials/PM_Jump") as PhysicsMaterial2D;
     }
@@ -103,14 +106,16 @@ public class PlayerController : FindGM
                                     Time.fixedDeltaTime;
         }
 
-        var a = _CM.GetComponent<Animator>();
-        if (_rigidbody2D.velocity==Vector2.zero)
+        //角色的动画状态机
+        _Anima.SetFloat("Jump_Y", _rigidbody2D.velocity.y); // 负为fall，正为up
+        if(Hor==0)
         {
-            a.SetBool("IsMove", false);
+            _Anima.SetBool("IsMove", false);
+            
         }
         else
         {
-            a.SetBool("IsMove", true);
+            _Anima.SetBool("IsMove", true);
         }
     }
     private bool OnGround()
