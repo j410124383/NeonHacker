@@ -1,41 +1,84 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
+using UnityEngine.InputSystem;
 
 public class PlayerController : FindGM
 {
+    public static PlayerController instance;
+
 
     [HideInInspector] public Rigidbody2D _rigidbody2D;
     [HideInInspector] public float _velocityX;
     private bool _isOnGround = false;
 
-
-    [Header("移动速度")]
+    [FoldoutGroup("移动")]
+    [LabelText("移动速度")]
     public float walkSpeed = 3.5f;
+    [FoldoutGroup("移动")]
     public float AccelerateTime = 0.09f;
-    [Header("跳跃")]
-    public float JumpingSpeed;
-    public float FallMultipier;
-    public float LowJumpMultiplier;
-    private bool _isJumping = false;
 
-    [Header("触地检测盒")]
+
+    [FoldoutGroup("跳跃")]
+    public float JumpingSpeed;
+    [FoldoutGroup("跳跃")]
+    public float FallMultipier;
+    [FoldoutGroup("跳跃")]
+    public float LowJumpMultiplier;
+    [FoldoutGroup("跳跃")]
+    [LabelText("是否跳跃")]private bool _isJumping = false;
+
+    [FoldoutGroup("触地检测盒")]
     public Transform _CheckTrans;   //地面盒位置
+    [FoldoutGroup("触地检测盒")]
     public Vector2 Size;     //地面盒形接触框的大小
+    [FoldoutGroup("触地检测盒")]
     public LayerMask GroundLayerMask; //地面盒形接触框的检测层
 
     private PhysicsMaterial2D _PM2D_01, _PM2D_02;
     private Animator _Anima;
 
+    public PlayerAction playerAction; //创建一个行为
 
     protected override void Awake()
     {
+        instance = this;
         base.Awake();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _Anima = GetComponent<Animator>();
         _PM2D_01 = Resources.Load("PhysicsMaterials/PM_Normal") as PhysicsMaterial2D;
         _PM2D_02 = Resources.Load("PhysicsMaterials/PM_Jump") as PhysicsMaterial2D;
+        playerAction = new PlayerAction();
+
+
+        playerAction.Player.Jump.started += OnJump;
+        playerAction.Enable();
+
     }
+
+    /// <summary>
+    /// 跳跃行为
+    /// </summary>
+    /// <param name="context"></param>
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if ( !_isJumping)
+        {
+            Jump();
+
+            _isJumping = true;
+        }
+        if (_isOnGround )
+        {
+            _isJumping = false;
+        }
+
+    }
+
+
+
+
     void FixedUpdate()
     {
         //判断是否碰到地面
@@ -50,22 +93,13 @@ public class PlayerController : FindGM
             _rigidbody2D.sharedMaterial = _PM2D_02;
         }
 
-        var Hor = Input.GetAxisRaw("Horizontal");
-        if (Hor>0)
-        {
-            transform.localScale = new Vector2(1,1);
-        }
-        else if(Hor<0)
-        {
-            transform.localScale = new Vector2(-1, 1);
-        }
+        float moveX = playerAction.Player.Move.ReadValue<Vector2>().x;
+        transform.localScale = (moveX > 0) ? Vector2.one:((moveX<0)?new Vector2(-1,1):transform.localScale);;
 
 
-        //velocity：刚体的线速度
-        float speed =
-            (Input.GetAxis("Horizontal") == 0 ?
-                0 : (Input.GetAxis("Horizontal") > 0 ?
-                      walkSpeed : -walkSpeed));
+
+        float speed =(moveX == 0 ? 0 : (moveX > 0 ? walkSpeed : -walkSpeed));
+
 
         //平滑的移动
         _rigidbody2D.velocity =new Vector2(Mathf.SmoothDamp(
@@ -76,17 +110,6 @@ public class PlayerController : FindGM
                 _rigidbody2D.velocity.y);
 
 
-
-        if (Input.GetAxis("Jump") == 1 && !_isJumping)
-        {
-            Jump();
-
-            _isJumping = true;
-        }
-        if (_isOnGround && Input.GetAxis("Jump") == 0)
-        {
-            _isJumping = false;
-        }
 
         //线速度是负值（即下坠中）（加速下坠）
         if (_rigidbody2D.velocity.y < 0)
@@ -108,15 +131,9 @@ public class PlayerController : FindGM
 
         //角色的动画状态机
         _Anima.SetFloat("Jump_Y", _rigidbody2D.velocity.y); // 负为fall，正为up
-        if(Hor==0)
-        {
-            _Anima.SetBool("IsMove", false);
-            
-        }
-        else
-        {
-            _Anima.SetBool("IsMove", true);
-        }
+
+        _Anima.SetBool("IsMove", (moveX == 0)? false:true);
+
     }
     private bool OnGround()
     {

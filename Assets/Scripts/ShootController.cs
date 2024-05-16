@@ -1,19 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Sirenix.OdinInspector;
+using UnityEngine.InputSystem;
 
 public class ShootController : FindGM
 {
-    [Header("武器库")]
+    [LabelText("武器库")]
     public List<Weapon> _WeaponList ;
     private int _WeaponNum=0;
 
-    [Header("当前武器")]
+    [LabelText("当前武器")]
     public Weapon weapon;
-    [Header("实际数值")]
+    [LabelText("实际数值")]
     public Transform _ShootTrans;
     [SerializeField]public Vector2 target;
+
+    private PlayerAction playerAction;
 
     protected override void Awake()
     {
@@ -22,58 +25,70 @@ public class ShootController : FindGM
         var s = "Assets/Gun/Fist";
         _WeaponList = new List<Weapon>() {new Weapon(Resources.Load(s)as GunType)};
         weapon = _WeaponList[0];
+        playerAction = new PlayerAction();
+        playerAction.Player.Shoot.started += OnShoot;
+        playerAction.Player.SwitchGun.started += OnSwitchGun;
+        playerAction.Player.UseSkill.started += OnUseSkill;
+        playerAction.Enable();
+        SwitchSchemes();
     }
 
     protected void Update()
     {
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(_ShootTrans.position);
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = screenPos.z;
+        //Vector3 screenPos = Camera.main.WorldToScreenPoint(_ShootTrans.position);
+        //Vector3 mousePos = Input.mousePosition;
+        //mousePos.z = screenPos.z;
 
 
-        target = Camera.main.ScreenToWorldPoint(mousePos);
-        _ShootTrans.LookAt(new Vector2(target.x, target.y));
-        _ShootTrans.transform.Rotate(new Vector3(0, -90, 0));
+        //target = Camera.main.ScreenToWorldPoint(mousePos);
+        //_ShootTrans.LookAt(new Vector2(target.x, target.y));
+        //_ShootTrans.transform.Rotate(new Vector3(0, -90, 0));
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            GunSwitch();
-        }
 
 
         if (_WeaponList.Count==0) return;
         _ShootTrans.GetChild(0).GetComponent<SpriteRenderer>().sprite = weapon.guntype.GunSprite;
 
+        // 判断当前使用的控制方案
 
-        if (Input.GetButtonDown("Fire1") && weapon.clipCount >0)
+
+        if (Mouse.current.delta.ReadValue() != Vector2.zero)
         {
-            target -= (Vector2)GameObject.Find("Player").transform.position;
-            target.Normalize();
-            Shoot();
+            modSwitch = true;
+        }
+        else if (Gamepad.current.rightStick.ReadValue() != Vector2.zero)
+        {
+            modSwitch = false;
         }
 
-        if(Input.GetButtonDown("Fire2"))
-        {
-            _SM.SkillUse(weapon.guntype.Skill);
-        }
-
+        SwitchSchemes();
     }
 
-    //切换武器
-    void GunSwitch()
+    /// <summary>
+    /// 使用技能
+    /// </summary>
+    /// <param name="context"></param>
+    private void OnUseSkill(InputAction.CallbackContext context)
     {
-        if (_WeaponNum==0)
-        {
-            _WeaponNum=_WeaponList.Count-1;
-        }
-        else if(_WeaponNum>0)
-        {
-            _WeaponNum--;
-        }
-        weapon = _WeaponList[_WeaponNum];
+        _SM.SkillUse(weapon.guntype.Skill);
     }
 
-    //获得武器
+
+    /// <summary>
+    /// 切换武器
+    /// </summary>
+    /// <param name="context"></param>
+    void OnSwitchGun(InputAction.CallbackContext context)
+    {
+        _WeaponNum = (_WeaponNum == 0) ? _WeaponList.Count - 1 :
+            (_WeaponNum>0? _WeaponNum--: _WeaponNum);
+
+    }
+
+    /// <summary>
+    /// 获得武器
+    /// </summary>
+    /// <param name="gun"></param>
     public void GunAdd(GunType gun)
     {
         //判定是否已获得同类武器
@@ -108,10 +123,67 @@ public class ShootController : FindGM
 
     }
 
+    public bool modSwitch;
 
-    void Shoot()
+    public void SwitchSchemes()
+    {
+        //modSwitch =! modSwitch;
+
+        if (modSwitch)
+        {
+            playerAction.Player.MouseAim.performed += OnMouseAim;
+            playerAction.Player.ShootLook.performed -= OnGamepadAim;
+
+            //mapModText.text = "Use Mouse Mode";
+        }
+        else
+        {
+            playerAction.Player.ShootLook.performed += OnGamepadAim;
+            playerAction.Player.MouseAim.performed -= OnMouseAim;
+
+            //mapModText.text = "Use Gamepad Mode";
+        }
+    }
+
+    private void OnMouseAim(InputAction.CallbackContext context)
+    {
+        // 更新手枪朝向
+
+        // 键鼠模式，使用鼠标位置
+        var mousev = context.ReadValue<Vector2>();
+        //Debug.Log("鼠标位置："+mousev);
+        var aimPos = (Vector2)Camera.main.ScreenToWorldPoint(mousev);
+
+        Vector2 aimDirection = aimPos - (Vector2)transform.position;
+        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+        _ShootTrans.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+    }
+
+    private void OnGamepadAim(InputAction.CallbackContext context)
     {
 
+
+        // 获取摇杆输入
+        Vector2 joystickInput = context.ReadValue<Vector2>();
+
+        // 如果摇杆有输入  
+        if (joystickInput != Vector2.zero)
+        {
+            // 计算朝向角度
+            float angle = Mathf.Atan2(joystickInput.y, joystickInput.x) * Mathf.Rad2Deg;
+            _ShootTrans.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+        }
+
+    }
+
+
+    public void OnShoot(InputAction.CallbackContext context)
+    {
+        if (weapon.clipCount <= 0) return;
+
+        target -= (Vector2)GameObject.Find("Player").transform.position;
+        target.Normalize();
         var bullet = Instantiate(weapon.guntype.BulletObj, _ShootTrans.GetChild(0).GetChild(0));
         bullet.transform.SetParent(_GM.transform);
         var b = bullet.GetComponent<Bullet>();
