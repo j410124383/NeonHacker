@@ -35,6 +35,9 @@ public class ShootController : FindGM
         _ShootTrans.LookAt(new Vector2(target.x, target.y));
         _ShootTrans.transform.Rotate(new Vector3(0, -90, 0));
 
+   
+        //_ShootTrans.transform.rotation= Quaternion.Euler(0, _ShootTrans.transform.rotation.y,0);
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             GunSwitch();

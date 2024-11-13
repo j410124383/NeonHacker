@@ -55,8 +55,8 @@ public class S_E_Shooter : FindGM
      
         //物理判定框
         //参数：盒子中心、大小、角度、层筛选器
-        Collider2D Coll = Physics2D.OverlapCircle(transform.position, e._EnemyType.AimingRange, GroundLayerMask);
-        if (Coll != null)
+        Collider[] Coll = Physics.OverlapSphere(transform.position, e._EnemyType.AimingRange, GroundLayerMask);
+        if (Coll.Length>=0)
         {
             return true;
         }

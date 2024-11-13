@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RunSmoke : FindGM
 {
-    private ParticleSystem _PS;
+   new  private ParticleSystem _PS;
 
     private void Start()
     {

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class S_E_Flyball : FindGM
 {
-
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Player")
         {
@@ -13,6 +12,9 @@ public class S_E_Flyball : FindGM
             GetComponent<EnemyDisplay>().Die();
         }
     }
+
+
+
 
     
 

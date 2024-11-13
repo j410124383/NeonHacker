@@ -25,17 +25,17 @@ public class SkillManager : FindGM
         }
 
         //使用技能
-        switch (name)
-        {
-            case SkillName.跳跃:
-                Skill_Jump();
-                break;
-            case SkillName.冲刺:
-                Skill_Dash();
-                break;
-            default:
-                break;
-        }
+        //switch (name)
+        //{
+        //    case SkillName.跳跃:
+        //        Skill_Jump();
+        //        break;
+        //    case SkillName.冲刺:
+        //        Skill_Dash();
+        //        break;
+        //    default:
+        //        break;
+        //}
 
         //消耗武器数量
         if (_SC.weapon.gunCount<=1)
@@ -55,20 +55,20 @@ public class SkillManager : FindGM
 
 
 
-    public void Skill_Jump()
-    {
-        //Debug.Log("二段跳");
-        _PC._rigidbody2D.velocity = new Vector2(_PC._rigidbody2D.velocity.x, JumpPower);
+    //public void Skill_Jump()
+    //{
+    //    //Debug.Log("二段跳");
+    //    _PC._rigidbody.velocity = new Vector2(_PC._rigidbody.velocity.x, JumpPower);
 
-    }
+    //}
 
 
-    public void Skill_Dash()
-    {
-        //Debug.Log("冲刺");
-        var x = _P.transform.localScale.x;
-        _PC._rigidbody2D.velocity = new Vector2(DashSpeed * x, _PC._rigidbody2D.velocity.y);
-    }
+    //public void Skill_Dash()
+    //{
+    //    //Debug.Log("冲刺");
+    //    var x = _P.transform.localScale.x;
+    //    _PC._rigidbody.velocity = new Vector2(DashSpeed * x, _PC._rigidbody.velocity.y);
+    //}
 
 
 }

@@ -20,7 +20,7 @@ public class PlayerState : FindGM
         
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == "Target")
         {
@@ -38,12 +38,9 @@ public class PlayerState : FindGM
             _GM.GetGift();
             Destroy(col.gameObject);
         }
-        //else if (col.gameObject.GetComponent<EnemyDisplay>()._EnemyType.EnemyName=="FallBall")
-        //{
-        //    _PC.Jump();
-        //    col.gameObject.GetComponent<EnemyDisplay>().Die();
-        //}
     }
+
+
 
 
 

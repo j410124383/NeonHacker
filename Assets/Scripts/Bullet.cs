@@ -63,7 +63,7 @@ public class Bullet : FindGM
     //}
 
 
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "AI")
         {

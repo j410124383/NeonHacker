@@ -21,7 +21,11 @@ public class FindGM : MonoBehaviour
         _UIM = GameObject.FindWithTag("UIM").GetComponent<UIManager>();
         _P = GameObject.FindWithTag("Player");
         _SC = _P.GetComponent<ShootController>();
-        _PC = _P.GetComponent<PlayerController>();
+        if ( _P.GetComponent<PlayerController>())
+        {
+            _PC = _P.GetComponent<PlayerController>();
+        }
+       
         _SM = _P.GetComponent<SkillManager>();
         _PS = _P.GetComponent<PlayerState>();
         _CM = GameObject.FindWithTag("CM");
