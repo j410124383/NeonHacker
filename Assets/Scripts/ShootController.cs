@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class ShootController : FindGM
+public class ShootController : MonoBehaviour
 {
+    public static ShootController instance;
+
+
     [Header("武器库")]
     public List<Weapon> _WeaponList ;
     private int _WeaponNum=0;
@@ -15,9 +18,9 @@ public class ShootController : FindGM
     public Transform _ShootTrans;
     [SerializeField]public Vector2 target;
 
-    protected override void Awake()
+    public  void Awake()
     {
-        base.Awake();
+        instance = this;
         //初始武器为拳头
         var s = "Assets/Gun/Fist";
         _WeaponList = new List<Weapon>() {new Weapon(Resources.Load(s)as GunType)};
@@ -35,7 +38,15 @@ public class ShootController : FindGM
         _ShootTrans.LookAt(new Vector2(target.x, target.y));
         _ShootTrans.transform.Rotate(new Vector3(0, -90, 0));
 
-   
+        // 根据目标位置设置 scale.z
+        if (target.x < _ShootTrans.position.x)
+        {
+            _ShootTrans.localScale = new Vector3(_ShootTrans.localScale.x, _ShootTrans.localScale.y, -1);
+        }
+        else
+        {
+            _ShootTrans.localScale = new Vector3(_ShootTrans.localScale.x, _ShootTrans.localScale.y, 1);
+        }
         //_ShootTrans.transform.rotation= Quaternion.Euler(0, _ShootTrans.transform.rotation.y,0);
 
         if (Input.GetKeyDown(KeyCode.Q))
@@ -57,7 +68,7 @@ public class ShootController : FindGM
 
         if(Input.GetButtonDown("Fire2"))
         {
-            _SM.SkillUse(weapon.guntype.Skill);
+            SkillManager.instance.SkillUse(weapon.guntype.Skill);
         }
 
     }
@@ -114,10 +125,12 @@ public class ShootController : FindGM
 
     void Shoot()
     {
-
-        var bullet = Instantiate(weapon.guntype.BulletObj, _ShootTrans.GetChild(0).GetChild(0));
-        bullet.transform.SetParent(_GM.transform);
+        var transmuzzle = _ShootTrans.GetChild(0).GetChild(0);
+        var bullet = Instantiate(weapon.guntype.BulletObj, transmuzzle);
+        bullet.transform.SetParent(EffectManager.instance.transform);
         var b = bullet.GetComponent<Bullet>();
+        StartCoroutine(EffectManager.instance.PlayEffect(5,transmuzzle.position));
+
         //参数赋予
         b.bulletType = BulletType.己方;
         b.FlySpeed = weapon.guntype.BulletSpeed;
@@ -149,7 +162,7 @@ public class ShootController : FindGM
         }
         else
         {
-            _GM.GameOver();
+            GameManager.instance.GameOver();
         }
 
 

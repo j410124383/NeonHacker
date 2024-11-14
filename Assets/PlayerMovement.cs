@@ -1,11 +1,12 @@
 using UnityEngine;
-//using Sirenix.OdinInspector;
-//using UnityEngine.InputSystem;
-using UnityEditor.Rendering.LookDev;
+using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine.Diagnostics;
 public class PlayerMovement : MonoBehaviour
 {
+
+    public static PlayerMovement instance;
+
     public float moveSpeed = 5f; // 移动速度
     public float jumpHeight = 2f; // 跳跃高度
     public float gravity = -9.8f; // 重力
@@ -21,6 +22,11 @@ public class PlayerMovement : MonoBehaviour
 
     private Animator animator;
 
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
 
     void Start()
@@ -73,7 +79,8 @@ public class PlayerMovement : MonoBehaviour
         // 处理跳跃
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // 跳跃公式
+            Jump();
+            
         }
 
         // 应用重力
@@ -90,6 +97,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-
+    //公开一个跳跃的行为，便于道具调用
+    public void Jump()
+    {
+        velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // 跳跃公式
+    }
 
 }

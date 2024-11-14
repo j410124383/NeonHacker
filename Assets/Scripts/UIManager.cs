@@ -5,8 +5,10 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
 
-public class UIManager : FindGM
+public class UIManager : MonoBehaviour
 {
+    public static UIManager instance;
+
     public TMP_Text _Timetext;
 
     [Header("敌人信息")]
@@ -30,9 +32,20 @@ public class UIManager : FindGM
     [Header("其余显示信息")]
     public Image _GiftImage;
 
-    protected override void Awake()
+    private GameManager _GM;
+    private PlayerState _PS;
+    private ShootController _SC;
+
+    private void Awake()
     {
-        base.Awake();
+        instance = this;
+    }
+
+    private void Start()
+    {
+        _GM = GameManager.instance;
+        _PS = PlayerState.instance;
+        _SC = ShootController.instance;
     }
 
     void Update()

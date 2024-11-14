@@ -18,14 +18,14 @@ public class Bullet : FindGM
     public float LiveTime;
     public Vector2 target;
     public BulletType bulletType;
-    private Rigidbody2D Rig;
+    private Rigidbody Rig;
 
 
 
     protected override void Awake()
     {
         base.Awake();
-        Rig = GetComponent<Rigidbody2D>();
+        Rig = GetComponent<Rigidbody>();
        
     }
 
@@ -57,14 +57,12 @@ public class Bullet : FindGM
 
     }
 
-    //private void OnTriggerEnter2D(Collider2D col)
-    //{
-
-    //}
 
 
     private void OnCollisionEnter(Collision col)
     {
+
+
         if (col.gameObject.tag == "AI")
         {
             //print("1");
@@ -88,7 +86,15 @@ public class Bullet : FindGM
 
     private void Die()
     {
-        //Debug.Log("已销毁子弹");
+        int i = 3;
+        if (gameObject.layer == LayerMask.NameToLayer("Bullet"))
+        {
+            i = 4;
+        }
+        EffectManager.instance.StartCoroutine(EffectManager.instance.PlayEffect(i, transform.position));
+
+        Debug.Log("已销毁子弹");
+
         Destroy(gameObject);
     
     }

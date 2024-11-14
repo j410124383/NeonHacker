@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class S_E_Shooter : FindGM
+public class S_E_Shooter : EnemyDisplay
 {
     //如果范围内有监测到玩家则开始蓄力
 
@@ -16,11 +16,12 @@ public class S_E_Shooter : FindGM
     public Image fill;
     public Vector2 target;
 
-    private EnemyDisplay e;
+    
+
+
     protected override void Awake()
     {
         base.Awake();
-        e = GetComponent<EnemyDisplay>();
     }
 
 
@@ -32,9 +33,19 @@ public class S_E_Shooter : FindGM
         {
             //计时，朝向玩家
             Aimingtime+=Time.timeScale;
-            _ShootTrans.transform.LookAt(_P.transform.position);
-            _ShootTrans.transform.Rotate(new Vector3(0, -90, 0));
+            var pos = PlayerState.instance.transform.position;
 
+            _ShootTrans.transform.LookAt(pos);
+            _ShootTrans.transform.Rotate(new Vector3(0, -90, 0));
+            // 根据目标位置设置 scale.z
+            if (pos.x < _ShootTrans.position.x)
+            {
+                _ShootTrans.localScale = new Vector3(_ShootTrans.localScale.x, _ShootTrans.localScale.y, -1);
+            }
+            else
+            {
+                _ShootTrans.localScale = new Vector3(_ShootTrans.localScale.x, _ShootTrans.localScale.y, 1);
+            }
         }
         else if(!_IsOnWarning&&Aimingtime>0)
         {
@@ -42,20 +53,20 @@ public class S_E_Shooter : FindGM
         }
 
 
-        if (Aimingtime>=e._EnemyType.AimingTime)
+        if (Aimingtime>=_EnemyType.AimingTime)
         {
 
             Shoot();
        
         }
-        fill.fillAmount = Aimingtime / e._EnemyType.AimingTime;
+        fill.fillAmount = Aimingtime /_EnemyType.AimingTime;
     }
     private bool OnWarning()
     {
      
         //物理判定框
         //参数：盒子中心、大小、角度、层筛选器
-        Collider[] Coll = Physics.OverlapSphere(transform.position, e._EnemyType.AimingRange, GroundLayerMask);
+        Collider[] Coll = Physics.OverlapSphere(transform.position,_EnemyType.AimingRange, GroundLayerMask);
         if (Coll.Length>=0)
         {
             return true;
@@ -65,19 +76,19 @@ public class S_E_Shooter : FindGM
 
     public void Shoot()
     {
-        target = _P.transform.position;
+        target = PlayerState.instance.transform.position;
         target -= (Vector2)_ShootTrans.GetChild(0).position;
         target.Normalize();
 
-        var bullet = Instantiate(e._EnemyType.BulletObj, _ShootTrans.GetChild(0));
-        bullet.transform.SetParent(_GM.transform);
+        var bullet = Instantiate(_EnemyType.BulletObj, _ShootTrans.GetChild(0));
+        bullet.transform.SetParent(EffectManager.instance.transform);
         var b = bullet.GetComponent<Bullet>();
         //参数赋予
         b.bulletType = BulletType.敌方;
-        b.FlySpeed = e._EnemyType.BulletSpeed;
-        b.Damage = e._EnemyType.BulletDanmage;
+        b.FlySpeed = _EnemyType.BulletSpeed;
+        b.Damage = _EnemyType.BulletDanmage;
         //b.transform.GetChild(0).GetComponent<SpriteRenderer>().color = e._EnemyType.guntype.GunColor;
-        b.LiveTime = e._EnemyType.BulletLiveTime;
+        b.LiveTime = _EnemyType.BulletLiveTime;
         b.target = target;
         Aimingtime = 0;
 

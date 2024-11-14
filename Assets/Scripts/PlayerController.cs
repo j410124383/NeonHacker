@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController : FindGM
 {
 
+
+
     [HideInInspector] public Rigidbody2D _rigidbody2D;
     [HideInInspector] public float _velocityX;
     private bool _isOnGround = false;

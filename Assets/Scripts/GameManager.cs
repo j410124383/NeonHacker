@@ -3,14 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : FindGM
+public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
     [Header("剩余目标数量")]
     public int _TargetCount;
     public int[] time =new int[3]  ; //分钟，秒钟，毫秒
     [HideInInspector]public float _NowTime;
 
     public bool Gift;
+
+
+    private UIManager _UIM;
+
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    private void Start()
+    {
+        _UIM = UIManager.instance;
+    }
+
 
     private void Update()
     {

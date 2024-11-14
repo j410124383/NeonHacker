@@ -13,8 +13,8 @@ public class RunSmoke : FindGM
 
     void Update()
     {
-        var X = _P.GetComponent<Rigidbody2D>().velocity.x;
-        var Y = _P.GetComponent<Rigidbody2D>().velocity.y;
+        var X = _P.GetComponent<Rigidbody>().velocity.x;
+        var Y = _P.GetComponent<Rigidbody>().velocity.y;
 
         if (X == 0 && Y != 0)
         {

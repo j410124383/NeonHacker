@@ -2,25 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class S_E_Flyball : FindGM
+public class S_E_Flyball : EnemyDisplay
 {
-    private void OnCollisionEnter(Collision col)
+    private void OnTriggerEnter(Collider col)
     {
+        Debug.Log("Åöµ½ÁËµ¯Ìø¹Ö");
         if (col.gameObject.tag == "Player")
         {
-            col.transform.GetComponent<PlayerController>().Jump();
+            col.transform.GetComponent<PlayerMovement>().Jump();
             GetComponent<EnemyDisplay>().Die();
         }
     }
 
 
-
-
-    
-
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-
-    }
 
 }

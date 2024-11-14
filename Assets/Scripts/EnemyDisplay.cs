@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDisplay : FindGM
+public class EnemyDisplay : MonoBehaviour
 {
 
     public EnemyType _EnemyType;
 
     public float Health;
-    protected override void Awake()
+    protected virtual void Awake()
     {
-        base.Awake();
+     
         Health = _EnemyType.Health;
     }
 
@@ -31,9 +31,10 @@ public class EnemyDisplay : FindGM
 
     public void Die()
     {
-        if (_GM._TargetCount > 0)
+
+        if (GameManager.instance._TargetCount > 0)
         {
-            _GM._TargetCount -= 1;
+            GameManager.instance._TargetCount -= 1;
         }
         Destroy(gameObject);
     }

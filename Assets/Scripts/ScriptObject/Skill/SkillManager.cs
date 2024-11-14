@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public enum SkillName
 {
@@ -10,12 +11,31 @@ public enum SkillName
 
 }
 
-public class SkillManager : FindGM
+public class SkillManager : MonoBehaviour
 {
+
+    public static SkillManager instance;
+
+
 
     [Header("需要暴露的参数")]
     public float DashSpeed =40f;
     public float JumpPower =7f;
+
+    private PlayerMovement _PC;
+
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    public void Start()
+    {
+        _PC = PlayerMovement.instance;
+    }
+
+
     public void SkillUse(SkillName name)
     {
         if (name == SkillName.无技能)
@@ -25,19 +45,22 @@ public class SkillManager : FindGM
         }
 
         //使用技能
-        //switch (name)
-        //{
-        //    case SkillName.跳跃:
-        //        Skill_Jump();
-        //        break;
-        //    case SkillName.冲刺:
-        //        Skill_Dash();
-        //        break;
-        //    default:
-        //        break;
-        //}
+        switch (name)
+        {
+            case SkillName.跳跃:
+                Skill_Jump();
+                break;
+            case SkillName.冲刺:
+                Skill_Dash();
+                break;
+            default:
+                break;
+        }
 
         //消耗武器数量
+
+        var _SC = ShootController.instance;
+
         if (_SC.weapon.gunCount<=1)
         {
             _SC.DestroyWeapon();
@@ -47,7 +70,7 @@ public class SkillManager : FindGM
             _SC.weapon.gunCount--;
         }
 
-        _CM.GetComponent<Animator>().SetTrigger("ISACTIVE");
+        GameObject.FindWithTag("CM").GetComponent<Animator>().SetTrigger("ISACTIVE");
         //print(_CM.name);
 
     }
@@ -55,20 +78,23 @@ public class SkillManager : FindGM
 
 
 
-    //public void Skill_Jump()
-    //{
-    //    //Debug.Log("二段跳");
-    //    _PC._rigidbody.velocity = new Vector2(_PC._rigidbody.velocity.x, JumpPower);
+    public void Skill_Jump()
+    {
+        //Debug.Log("二段跳");
+        //var _rigidbody = _PC.GetComponent<Rigidbody>();
 
-    //}
+        //_rigidbody.velocity = new Vector2(_rigidbody.velocity.x, JumpPower);
+        _PC.Jump();
+    }
 
 
-    //public void Skill_Dash()
-    //{
-    //    //Debug.Log("冲刺");
-    //    var x = _P.transform.localScale.x;
-    //    _PC._rigidbody.velocity = new Vector2(DashSpeed * x, _PC._rigidbody.velocity.y);
-    //}
+    public void Skill_Dash()
+    {
+        //Debug.Log("冲刺");
+        var _rigidbody = _PC.GetComponent<Rigidbody>();
+        var x = PlayerState.instance.transform.localScale.x;
+        _rigidbody.velocity = new Vector2(DashSpeed * x, _rigidbody.velocity.y);
+    }
 
 
 }

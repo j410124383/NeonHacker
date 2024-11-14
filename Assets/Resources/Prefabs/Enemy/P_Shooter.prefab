@@ -94,7 +94,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 921270193337488401}
-  - component: {fileID: 921270193337488400}
   - component: {fileID: 981276772690284133}
   - component: {fileID: 6432225531665899229}
   - component: {fileID: 6854348273402263752}
@@ -123,20 +122,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &921270193337488400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 921270193337488406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c8a248fcd7bf914db199ced37aa4043, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _EnemyType: {fileID: 11400000, guid: 2ae94164fe1baf944b4f9b95d56a30fe, type: 2}
-  Health: 0
 --- !u!114 &981276772690284133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bf18f0f373a55541a42c1ea44f7ea85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _EnemyType: {fileID: 11400000, guid: 2ae94164fe1baf944b4f9b95d56a30fe, type: 2}
+  Health: 0
   _IsOnWarning: 0
   Aimingtime: 0
   _ShootTrans: {fileID: 921270193325771382}
@@ -171,7 +158,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!135 &6854348273402263752
 SphereCollider:
@@ -181,7 +168,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 921270193337488406}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
