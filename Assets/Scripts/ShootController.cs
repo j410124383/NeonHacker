@@ -129,7 +129,10 @@ public class ShootController : MonoBehaviour
         var bullet = Instantiate(weapon.guntype.BulletObj, transmuzzle);
         bullet.transform.SetParent(EffectManager.instance.transform);
         var b = bullet.GetComponent<Bullet>();
-        StartCoroutine(EffectManager.instance.PlayEffect(5,transmuzzle.position));
+        //播放特效
+        StartCoroutine(EffectManager.instance.PlayEffect(5,transmuzzle.position, _ShootTrans.localRotation));
+        var p = PlayerMovement.instance.playerSprite.transform;
+        StartCoroutine(EffectManager.instance.PlayEffect(6, p.position,new Vector3(-p.localScale.x,1,1)));
 
         //参数赋予
         b.bulletType = BulletType.己方;

@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Plugins/Easy performant outline/Demo/Models for Demo scene/Cartoon Buildings/Scene/Scene.unity.meta
+guid: 57dfe9721c6bd554b8899f04129a7720
+========
+guid: f63a353b80939e84982a1d63b3d7e0ce
+folderAsset: yes
+>>>>>>>> Dev_Li:Assets/Scripts/Level/LogicLayer/SignalLine.meta
+DefaultImporter:
+<<<<<<< HEAD
+=======
+========
+guid: 3838f3a6d04569f41aef023790c0e11d
+PrefabImporter:
+>>>>>>>> 71a22d150ce578ced723650083079618d61d2ec6:Assets/Resources/Prefab/Logic_NOTSignal.prefab.meta
+>>>>>>> Art_Zhang
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

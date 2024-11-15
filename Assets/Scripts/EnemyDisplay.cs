@@ -23,11 +23,13 @@ public class EnemyDisplay : MonoBehaviour
 
     }
 
-    public void Behurt(float count)
+    public void Behurt(float count,Quaternion hitroation)
     {
         Health -= count;
+        lastrotation = hitroation;
     }
 
+    private Quaternion lastrotation;
 
     public void Die()
     {
@@ -36,6 +38,10 @@ public class EnemyDisplay : MonoBehaviour
         {
             GameManager.instance._TargetCount -= 1;
         }
+
+        //死亡效果，生成贴花
+        EffectManager.instance.StartCoroutine(EffectManager.instance.PlayEffect(7,transform.position, lastrotation));
+
         Destroy(gameObject);
     }
 

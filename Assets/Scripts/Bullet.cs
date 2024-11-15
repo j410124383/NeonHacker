@@ -67,7 +67,7 @@ public class Bullet : FindGM
         {
             //print("1");
             var ed = col.gameObject.GetComponent<EnemyDisplay>();
-            ed.Behurt(Damage);
+            ed.Behurt(Damage,transform.localRotation);
             _UIM.EnemyStateDisplay(ed._EnemyType.EnemyName, ed.Health,Damage, ed._EnemyType.Health);
         }
         if (col.gameObject.tag == "Player")
