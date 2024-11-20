@@ -40,7 +40,7 @@ public class EnemyDisplay : MonoBehaviour
         }
 
         //死亡效果，生成贴花
-        EffectManager.instance.StartCoroutine(EffectManager.instance.PlayEffect(7,transform.position, lastrotation));
+        EffectManager.instance.StartCoroutine(EffectManager.instance.PlayEffect("DecalBlood",transform.position, lastrotation));
 
         Destroy(gameObject);
     }

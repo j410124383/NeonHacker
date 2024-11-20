@@ -86,10 +86,10 @@ public class Bullet : FindGM
 
     private void Die()
     {
-        int i = 3;
+        string i = "BulletDie_Red";
         if (gameObject.layer == LayerMask.NameToLayer("Bullet"))
         {
-            i = 4;
+            i = "BulletDie_Yellow";
         }
         EffectManager.instance.StartCoroutine(EffectManager.instance.PlayEffect(i, transform.position));
 
