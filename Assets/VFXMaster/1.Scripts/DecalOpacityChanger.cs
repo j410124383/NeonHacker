@@ -16,8 +16,8 @@ public class DecalOpacityChanger : MonoBehaviour
 
     void Update()
     {
-        Color decalColor = decalMaterial.color;
-        decalColor.a = opacity;
-        decalMaterial.color = decalColor;
+        //Color decalColor = decalMaterial.color;
+        //decalColor.a = opacity;
+        //decalMaterial.color = decalColor;
     }
 }
